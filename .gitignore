@@ -3,7 +3,10 @@
 **/dist/
 **/build/
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6ba0649 (Include maven wrapper files)
 
 # IDE files
 **/.idea/
