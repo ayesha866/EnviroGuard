@@ -1,0 +1,19 @@
+# Node dependencies & build outputs
+**/node_modules/
+**/dist/
+**/build/
+
+# Java / Maven build outputs
+**/target/
+**/.mvn/
+*.class
+*.jar
+
+# IDE files
+**/.idea/
+**/.vscode/
+*.iml
+
+# Environment variables
+**/.env
+**/.env.local
