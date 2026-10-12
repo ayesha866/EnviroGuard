@@ -3,11 +3,7 @@
 **/dist/
 **/build/
 
-# Java / Maven build outputs
-**/target/
-**/.mvn/
-*.class
-*.jar
+
 
 # IDE files
 **/.idea/
