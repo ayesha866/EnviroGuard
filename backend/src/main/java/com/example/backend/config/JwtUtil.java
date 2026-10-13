@@ -3,32 +3,36 @@ package com.example.backend.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.util.Date;
 
 @Component
 public class JwtUtil {
 
-    private final String SECRET_KEY = "EnviroGuardSuperSecretKeyThatIsVeryLongAndSecure1234567890!";
-    private final SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+    private final SecretKey key;
 
-    // Existing method (for backwards compatibility)
+    // Default fallback value added after the colon (:) prevents startup crash
+    public JwtUtil(@Value("${jwt.secret:EnviroGuardSuperSecretKeyThatIsVeryLongAndSecure1234567890!}") String secretKey) {
+        this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+    }
+
+    // Fallback method for global access token generation
     public String generateToken(String username, String role) {
         return generateToken(username, role, null);
     }
 
-    // Updated method supporting Multi-Tenancy (factoryId)
+    // Multi-tenant token generation (includes factoryId)
     public String generateToken(String username, String role, Long factoryId) {
         return Jwts.builder()
-                .setSubject(username)
+                .subject(username)
                 .claim("role", role)
                 .claim("factoryId", factoryId)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 Hours
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 Hours
                 .signWith(key)
                 .compact();
     }
@@ -59,9 +63,5 @@ public class JwtUtil {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
-    }
-
-    public String extractClaim(String jwt, Object claimName) {
-        return getClaims(jwt).get(claimName.toString(), String.class);
     }
 }

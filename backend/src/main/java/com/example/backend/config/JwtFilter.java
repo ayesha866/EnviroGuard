@@ -44,8 +44,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 // FIXED: Explicitly defining the Function to resolve the "not a functional interface" error
                 java.util.function.Function<io.jsonwebtoken.Claims, String> roleResolver =
                         claims -> claims.get("role", String.class);
-
-                String tokenRole = jwtUtil.extractClaim(jwt, roleResolver);
+                String tokenRole = jwtUtil.extractRole(jwt);
 
                 if (tokenRole != null) {
                     role = tokenRole;

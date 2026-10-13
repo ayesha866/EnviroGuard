@@ -56,3 +56,9 @@ spring:
 # ==========================================
 alert:
   target-email: ayesha.mujeeb766@gmail.com
+
+  # ==========================================
+  # JWT Security Configuration
+  # ==========================================
+  jwt:
+    secret: EnviroGuardSuperSecretKeyThatIsVeryLongAndSecure1234567890!

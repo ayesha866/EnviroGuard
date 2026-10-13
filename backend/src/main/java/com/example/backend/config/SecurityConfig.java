@@ -20,10 +20,10 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final JwtAuthenticationFilter jwtAuthFilter;
+
     private final JwtFilter jwtFilter;
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, JwtFilter jwtFilter) {
-        this.jwtAuthFilter = jwtAuthFilter;
+    public SecurityConfig( JwtFilter jwtFilter) {
+
         this.jwtFilter = jwtFilter;
     }
     @Bean
@@ -34,7 +34,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
+                .cors(org.springframework.security.config.Customizer.withDefaults()) // <-- ADD THIS LINE
                 .authorizeHttpRequests(auth -> auth
+                        // Public endpoints
+                        .requestMatchers("/api/auth/login", "/ws/**").permitAll()
+                        // Super Admin Endpoints
+                        .requestMatchers("/api/superadmin/**").hasAuthority("ROLE_SUPER_ADMIN")
                         .requestMatchers("/api/auth/**", "/ws/**").permitAll() // Open to everyone
                         .requestMatchers("/api/audit/**").hasAuthority("ROLE_ADMIN") // ONLY Admins can run audits
                         .requestMatchers("/api/telemetry/ingest").hasAuthority("ROLE_ADMIN") // ONLY Admins/Sensors can ingest
