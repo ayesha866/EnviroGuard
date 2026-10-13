@@ -3,7 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 import './App.css'
-
+const API_BASE_URL = "https://enviroguard-rsi0.onrender.com"; // Replace with your Render URL
 const getDecodedToken = (token) => {
   if (!token) return null;
   try {
@@ -60,7 +60,7 @@ function App() {
         return;
       }
       try {
-        const res = await fetch('http://localhost:8080/api/auth/signup', {
+        const res = await fetch(`${API_BASE_URL}/api/auth/signup`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, email, password, factoryName })
@@ -79,7 +79,7 @@ function App() {
         return;
       }
       try {
-        const res = await fetch('http://localhost:8080/api/auth/login', {
+        const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password, factoryId: parseInt(loginFactoryId) })
@@ -104,7 +104,7 @@ function App() {
     e.preventDefault();
     setAdminMsg('');
     try {
-      const response = await fetch("http://localhost:8080/api/admin/create-worker", {
+      const response = await fetch(`${API_BASE_URL}/api/admin/create-worker`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ username: newWorkerUser, password: newWorkerPass, email: newWorkerEmail })
@@ -122,7 +122,7 @@ function App() {
 
   useEffect(() => {
     if (!token) return;
-    fetch('http://localhost:8080/api/telemetry/sensors', { headers: { 'Authorization': `Bearer ${token}` } })
+    fetch(`${API_BASE_URL}/api/telemetry/sensors`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {
@@ -135,14 +135,14 @@ function App() {
   useEffect(() => {
     if (!token) return;
 
-    fetch(`http://localhost:8080/api/telemetry/history/${encodeURIComponent(sensorId)}`, {
+    fetch(`${API_BASE_URL}/api/telemetry/history/${encodeURIComponent(sensorId)}`, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
       .then(res => res.ok ? res.json() : [])
       .then(data => setTelemetryData(Array.isArray(data) ? data : []))
       .catch(err => console.error("Initial telemetry load failed:", err));
 
-    const socket = new SockJS('http://localhost:8080/ws-enviroguard');
+    const socket = new SockJS(`${API_BASE_URL}/ws-enviroguard`);
     const stompClient = Stomp.over(socket);
     stompClient.debug = () => {};
 
@@ -187,7 +187,7 @@ const runAudit = async (e) => {
   setAiResponse('');
 
   try {
-    const queryUrl = `http://localhost:8080/api/audit/query?question=${encodeURIComponent(question)}&sensorId=${encodeURIComponent(sensorId)}`;
+    const queryUrl = `${API_BASE_URL}/api/audit/query?question=${encodeURIComponent(question)}&sensorId=${encodeURIComponent(sensorId)}`;
 
     const res = await fetch(queryUrl, {
       method: 'GET',
@@ -215,7 +215,7 @@ const runAudit = async (e) => {
   } catch (err) {
     // 4. Distinguish between connection refusal vs API errors
     if (err.name === 'TypeError' && err.message === 'Failed to fetch') {
-      setError('Unable to connect to backend server at http://localhost:8080.');
+      setError(`Unable to connect to backend server at ${API_BASE_URL}.`);
     } else {
       setError(err.message || 'An unexpected error occurred during the audit.');
     }
