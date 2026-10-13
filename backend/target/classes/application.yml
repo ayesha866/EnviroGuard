@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: backend
+
+  datasource:
+    # Neon PostgreSQL Credentials
+    url: jdbc:postgresql://ep-odd-bread-b50myl9n-pooler.c-7.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+    username: neondb_owner
+    password: npg_vZQGaC9z5ety
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  cache:
+    type: simple
+
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: llama3
+      embedding:
+        options:
+          model: nomic-embed-text
+
+    vectorstore:
+      pgvector:
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        initialize-schema: true
+        dimensions: 768
+
+  # ==========================================
+  # Email Server Configuration (Gmail)
+  # ==========================================
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ayesha.mujeeb766@gmail.com
+    password: kpdl addq fkfd spqp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+# ==========================================
+# Alert Target Email
+# ==========================================
+alert:
+  target-email: ayesha.mujeeb766@gmail.com
+
+  # ==========================================
+  # JWT Security Configuration
+  # ==========================================
+  jwt:
+    secret: EnviroGuardSuperSecretKeyThatIsVeryLongAndSecure1234567890!

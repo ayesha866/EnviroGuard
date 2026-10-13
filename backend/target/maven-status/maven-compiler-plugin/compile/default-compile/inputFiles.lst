@@ -1,0 +1,9 @@
+C:\Users\Ayesha Mujeeb\EnviroGuard\backend\src\main\java\com\example\backend\BackendApplication.java
+C:\Users\Ayesha Mujeeb\EnviroGuard\backend\src\main\java\com\example\backend\config\SecurityConfig.java
+C:\Users\Ayesha Mujeeb\EnviroGuard\backend\src\main\java\com\example\backend\controller\AuditController.java
+C:\Users\Ayesha Mujeeb\EnviroGuard\backend\src\main\java\com\example\backend\controller\TelemetryController.java
+C:\Users\Ayesha Mujeeb\EnviroGuard\backend\src\main\java\com\example\backend\dto\TelemetryDTO.java
+C:\Users\Ayesha Mujeeb\EnviroGuard\backend\src\main\java\com\example\backend\model\TelemetryLog.java
+C:\Users\Ayesha Mujeeb\EnviroGuard\backend\src\main\java\com\example\backend\repository\TelemetryRepository.java
+C:\Users\Ayesha Mujeeb\EnviroGuard\backend\src\main\java\com\example\backend\service\ComplianceAuditService.java
+C:\Users\Ayesha Mujeeb\EnviroGuard\backend\src\main\java\com\example\backend\service\TelemetryService.java

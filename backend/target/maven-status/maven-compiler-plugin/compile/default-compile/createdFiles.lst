@@ -1,0 +1,10 @@
+com\example\backend\service\TelemetryService.class
+com\example\backend\model\TelemetryLog$TelemetryLogBuilder.class
+com\example\backend\model\TelemetryLog.class
+com\example\backend\controller\TelemetryController.class
+com\example\backend\BackendApplication.class
+com\example\backend\config\SecurityConfig.class
+com\example\backend\controller\AuditController.class
+com\example\backend\service\ComplianceAuditService.class
+com\example\backend\repository\TelemetryRepository.class
+com\example\backend\dto\TelemetryDTO.class
