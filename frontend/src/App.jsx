@@ -3,7 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 import './App.css'
-const API_BASE_URL = "https://enviroguard-rsi0.onrender.com"; // Replace with your Render URL
+
 const getDecodedToken = (token) => {
   if (!token) return null;
   try {
@@ -47,7 +47,7 @@ function App() {
   const userRole = decodedToken?.role;
   const userFactoryId = decodedToken?.factoryId;
   const isAdmin = userRole === 'ROLE_ADMIN';
-
+const API_BASE_URL = "https://enviroguard-rsi0.onrender.com";
   const handleAuth = async (e) => {
     e.preventDefault()
     setError('')
