@@ -56,7 +56,12 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173")); // Allow React frontend
+
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:5173", // Keep local testing
+                "https://enviro-guard-rho.vercel.app", // Your active Vercel URL
+                "https://enviro-guard-guq3okqq7-ayesha-mujeeb.vercel.app" // Your other Vercel preview URL
+        ));// Allow React frontend
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 
