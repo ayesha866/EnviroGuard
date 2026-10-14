@@ -15,6 +15,7 @@ const getDecodedToken = (token) => {
 };
 
 function App() {
+    const API_BASE_URL = "https://enviroguard-rsi0.onrender.com";
   const [token, setToken] = useState(localStorage.getItem('jwt') || '')
 
   // Auth Form State
@@ -47,7 +48,7 @@ function App() {
   const userRole = decodedToken?.role;
   const userFactoryId = decodedToken?.factoryId;
   const isAdmin = userRole === 'ROLE_ADMIN';
-const API_BASE_URL = "https://enviroguard-rsi0.onrender.com";
+
   const handleAuth = async (e) => {
     e.preventDefault()
     setError('')
