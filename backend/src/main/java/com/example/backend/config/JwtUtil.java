@@ -16,7 +16,7 @@ public class JwtUtil {
     private final SecretKey key;
 
     // Default fallback value added after the colon (:) prevents startup crash
-    public JwtUtil(@Value("${jwt.secret:EnviroGuardSuperSecretKeyThatIsVeryLongAndSecure1234567890!}") String secretKey) {
+    public JwtUtil(@Value("${jwt.secret}") String secretKey) {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
