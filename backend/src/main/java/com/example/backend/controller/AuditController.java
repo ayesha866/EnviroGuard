@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.service.ComplianceAuditService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -20,7 +21,7 @@ public class AuditController {
         auditService.indexRegulation(request.get("ruleText"), request.get("ruleId"));
         return ResponseEntity.ok("Regulation indexed successfully into pgvector.");
     }
-
+    @PreAuthorize("hasAuthority('ADMIN')") // Use hasAuthority instead of hasRole
     @GetMapping("/query")
     public ResponseEntity<String> performAudit(@RequestParam String question, @RequestParam String sensorId) {
         String result = auditService.runAudit(question, sensorId);
